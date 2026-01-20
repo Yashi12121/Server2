@@ -3,112 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blox Fruits VIP Server - Admin System</title>
+    <title>Blox Fruits VIP Server</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #00ff88;
-            --danger: #ff4444;
-            --bg: #1a1a1a;
-        }
-
-        body {
-            font-family: 'Kanit', sans-serif;
-            background-color: var(--bg);
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .card {
-            background: #2a2a2a;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            width: 320px;
-            border: 2px solid #333;
-        }
-
-        h1 { margin-bottom: 20px; letter-spacing: 2px; }
-
-        .status-wrapper {
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #111;
-        }
-
-        .status-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 10px;
-            background: gray;
-        }
-
+        :root { --primary: #00ff88; --danger: #ff4444; --bg: #1a1a1a; }
+        body { font-family: 'Kanit', sans-serif; background-color: var(--bg); color: white; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .card { background: #2a2a2a; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 0 20px rgba(0,0,0,0.5); width: 320px; border: 2px solid #333; }
+        .status-wrapper { padding: 10px; border-radius: 10px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; background: #111; }
+        .status-dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 10px; background: gray; }
         .online .status-dot { background: var(--primary); box-shadow: 0 0 10px var(--primary); }
         .offline .status-dot { background: var(--danger); }
-
-        .join-button {
-            display: block;
-            background: var(--primary);
-            color: black;
-            padding: 12px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            transition: 0.3s;
-        }
-
-        .disabled { background: #555 !important; cursor: not-allowed; pointer-events: none; }
-
-        /* Admin Section */
-        #admin-panel {
-            display: none;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #444;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0;
-            background: #333;
-            border: 1px solid #444;
-            color: white;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        .admin-btn {
-            background: #444;
-            color: white;
-            border: none;
-            padding: 10px;
-            width: 100%;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .login-trigger {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            opacity: 0.1;
-            cursor: pointer;
-        }
+        .join-button { display: block; background: var(--primary); color: black; padding: 12px; text-decoration: none; font-weight: bold; border-radius: 5px; margin-bottom: 10px; transition: 0.3s; }
+        .disabled { background: #555 !important; cursor: not-allowed; pointer-events: none; opacity: 0.5; }
+        #admin-panel { display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #444; }
+        input, select { width: 100%; padding: 8px; margin: 5px 0; background: #333; border: 1px solid #444; color: white; border-radius: 5px; box-sizing: border-box; }
+        .admin-btn { background: var(--primary); color: black; border: none; padding: 10px; width: 100%; cursor: pointer; margin-top: 10px; font-weight: bold; border-radius: 5px; }
+        .login-trigger { position: fixed; bottom: 10px; right: 10px; opacity: 0.2; cursor: pointer; font-size: 10px; }
     </style>
 </head>
 <body>
+
+    <div class="card">
+        <h1 onclick="adminLogin()">BLOX FRUITS</h1>
+        
+        <div id="status-area" class="status-wrapper">
+            <div class="status-dot"></div>
+            <span id="status-text">CONNECTING...</span>
+        </div>
+
+        <a href="#" id="join-btn" class="join-button">JOIN SERVER</a>
+        <p id="update-time" style="font-size: 0.7rem; color: #888;">กำลังโหลดข้อมูล...</p>
+
+        <div id="admin-panel">
+            <h3 style="color: var(--primary)">DEV CONTROLS</h3>
+            <input type="text" id="new-link" placeholder="วางลิ้งค์เชิฟเวอร์ใหม่">
+            <select id="new-status">
+                <option value="true">เปิดเชิฟเวอร์ (ONLINE)</option>
+                <option value="false">ปิดเชิฟเวอร์ (OFFLINE)</option>
+            </select>
+            <button onclick="updateServer()" class="admin-btn">บันทึกและประกาศ</button>
+        </div>
+    </div>
+
+    <div class="login-trigger" onclick="adminLogin()">DEV LOGIN</div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        // Firebase Config ของคุณ
+        const firebaseConfig = {
+            apiKey: "AIzaSyBcUHlTRnYahSSM4uGAGzBUWom1EUpi48M",
+            authDomain: "yashi-c2e9c.firebaseapp.com",
+            databaseURL: "https://yashi-c2e9c-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "yashi-c2e9c",
+            storageBucket: "yashi-c2e9c.firebasestorage.app",
+            messagingSenderId: "377974752693",
+            appId: "1:377974752693:web:cc6a7d7b4380923ec805fc",
+            measurementId: "G-J76B1WYRHV"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const serverRef = ref(db, 'serverData');
+
+        // ดึงข้อมูล Realtime
+        onValue(serverRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                const statusArea = document.getElementById('status-area');
+                const statusText = document.getElementById('status-text');
+                const joinBtn = document.getElementById('join-btn');
+                const updateTime = document.getElementById('update-time');
+
+                if (data.isOnline === "true" || data.isOnline === true) {
+                    statusArea.className = "status-wrapper online";
+                    statusText.innerText = "SERVER ONLINE";
+                    joinBtn.href = data.link;
+                    joinBtn.classList.remove('disabled');
+                    joinBtn.innerText = "JOIN SERVER";
+                } else {
+                    statusArea.className = "status-wrapper offline";
+                    statusText.innerText = "SERVER OFFLINE";
+                    joinBtn.href = "#";
+                    joinBtn.classList.add('disabled');
+                    joinBtn.innerText = "LINK EXPIRED";
+                }
+                updateTime.innerText = "อัปเดตล่าสุด: " + data.lastUpdate;
+            } else {
+                // ถ้าไม่มีข้อมูลใน Database ให้สร้างค่าเริ่มต้น
+                set(serverRef, {
+                    isOnline: false,
+                    link: "",
+                    lastUpdate: "ยังไม่มีการอัปเดต"
+                });
+            }
+        });
+
+        // ฟังก์ชันสำหรับ Dev กด Update
+        window.updateServer = function() {
+            const link = document.getElementById('new-link').value;
+            const status = document.getElementById('new-status').value;
+            const time = new Date().toLocaleString('th-TH', { hour12: false });
+
+            set(serverRef, {
+                link: link,
+                isOnline: status,
+                lastUpdate: time
+            }).then(() => alert("อัปเดตสถานะสำเร็จ! ทุกคนเห็นข้อมูลแล้ว"));
+        }
+    </script>
+
+    <script>
+        // ระบบ Login สำหรับ Dev (รหัสผ่านคือ 1234)
+        function adminLogin() {
+            const pass = prompt("กรุณาใส่รหัสผ่าน Developer:");
+            if (pass === "1234") { // <--- เปลี่ยนรหัสผ่านตรงนี้ได้
+                document.getElementById('admin-panel').style.display = 'block';
+                alert("ยินดีต้อนรับผู้พัฒนา!");
+            } else if (pass !== null) {
+                alert("รหัสผ่านไม่ถูกต้อง!");
+            }
+        }
+    </script>
+</body>
+</html>
 
     <div class="card">
         <h1>BLOX FRUITS</h1>
@@ -219,3 +238,4 @@
     </script>
 </body>
 </html>
+

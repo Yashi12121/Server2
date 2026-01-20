@@ -7,33 +7,27 @@
 
 body {
     font-family: 'Kanit', sans-serif;
-    background-color: #050505; /* ดำสนิท */
+    background-color: #050505;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
-    overflow: hidden; /* ป้องกันสกอร์บาร์ส่วนเกิน */
 }
 
-/* คอนเทนเนอร์หลัก */
 .container {
     width: 100%;
     max-width: 400px;
-    display: flex;
-    justify-content: center;
 }
 
 /* เอฟเฟกต์ไฟ RGB รอบการ์ด */
 .rgb-card {
     position: relative;
-    width: 100%;
-    padding: 3px; /* ความหนาของเส้นไฟ RGB */
+    padding: 3px;
     background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
     background-size: 400%;
     border-radius: 25px;
     animation: rgb-animation 20s linear infinite;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 @keyframes rgb-animation {
@@ -42,7 +36,6 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* ตัวการ์ดข้างใน (สีดำ) */
 .card {
     background: #111;
     padding: 40px 30px;
@@ -53,26 +46,74 @@ body {
 h1 {
     font-size: 2rem;
     letter-spacing: 2px;
-    margin-bottom: 5px;
     color: #fff;
-    font-weight: 700;
+    margin-bottom: 5px;
 }
+
+/* --- ส่วนของไฟสถานะ --- */
+.status-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.status-text {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* กรณีออนไลน์ (สีเขียว) */
+.online .status-dot {
+    background-color: #2ecc71;
+    box-shadow: 0 0 10px #2ecc71;
+    animation: pulse-green 2s infinite;
+}
+.online .status-text { color: #2ecc71; }
+
+/* กรณีออฟไลน์ (สีแดง) */
+.offline .status-dot {
+    background-color: #e74c3c;
+    box-shadow: 0 0 10px #e74c3c;
+    animation: pulse-red 2s infinite;
+}
+.offline .status-text { color: #e74c3c; }
+
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+}
+
+@keyframes pulse-red {
+    0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+}
+/* -------------------- */
 
 p {
     font-size: 0.8rem;
-    color: #888;
-    letter-spacing: 3px;
-    margin-bottom: 35px;
+    color: #555;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
 }
 
-/* กลุ่มปุ่ม */
 .button-group {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
 }
 
-/* ปุ่ม Join (สีขาวเด่น) */
 .join-button {
     display: block;
     background: #fff;
@@ -81,49 +122,32 @@ p {
     border-radius: 12px;
     text-decoration: none;
     font-weight: 700;
-    font-size: 1.1rem;
     transition: 0.3s;
-    text-transform: uppercase;
 }
 
 .join-button:hover {
-    background: #ddd;
-    transform: scale(1.03);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
 }
 
-/* ปุ่ม Reload (สไตล์ Outline) */
 .reload-button {
     background: transparent;
-    color: #fff;
+    color: #666;
     padding: 12px;
     border-radius: 12px;
-    border: 1px solid #333;
+    border: 1px solid #222;
     cursor: pointer;
     font-family: 'Kanit', sans-serif;
-    font-size: 0.8rem;
     transition: 0.3s;
 }
 
 .reload-button:hover {
-    background: #222;
+    color: #fff;
     border-color: #fff;
 }
 
-.footer {
-    margin-top: 30px;
-}
-
 .footer p {
+    margin-top: 30px;
     font-size: 0.7rem;
-    color: #444;
-}
-
-/* รองรับมือถือ */
-@media (max-width: 480px) {
-    .card {
-        padding: 30px 20px;
-    }
-    h1 {
-        font-size: 1.6rem;
-    }
+    color: #333;
 }

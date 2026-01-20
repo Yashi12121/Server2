@@ -7,94 +7,123 @@
 
 body {
     font-family: 'Kanit', sans-serif;
-    background-color: #121212; /* สีพื้นหลังเข้มแบบ Gaming */
-    color: white;
+    background-color: #050505; /* ดำสนิท */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
+    overflow: hidden; /* ป้องกันสกอร์บาร์ส่วนเกิน */
 }
 
+/* คอนเทนเนอร์หลัก */
 .container {
     width: 100%;
-    max-width: 400px; /* ล็อกขนาดให้พอดี ไม่กว้างเกินไปในคอม */
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
 }
 
+/* เอฟเฟกต์ไฟ RGB รอบการ์ด */
+.rgb-card {
+    position: relative;
+    width: 100%;
+    padding: 3px; /* ความหนาของเส้นไฟ RGB */
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    background-size: 400%;
+    border-radius: 25px;
+    animation: rgb-animation 20s linear infinite;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+@keyframes rgb-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ตัวการ์ดข้างใน (สีดำ) */
 .card {
-    background: #1f1f1f;
+    background: #111;
     padding: 40px 30px;
-    border-radius: 24px;
+    border-radius: 22px;
     text-align: center;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    border: 1px solid #333;
 }
 
 h1 {
-    font-size: 1.6rem;
-    margin-bottom: 10px;
-    color: #ffffff;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    color: #fff;
+    font-weight: 700;
 }
 
 p {
-    font-weight: 300;
-    font-size: 0.95rem;
-    color: #b0b0b0;
-    margin-bottom: 30px;
+    font-size: 0.8rem;
+    color: #888;
+    letter-spacing: 3px;
+    margin-bottom: 35px;
 }
 
-/* ตกแต่งปุ่ม Join */
+/* กลุ่มปุ่ม */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* ปุ่ม Join (สีขาวเด่น) */
 .join-button {
     display: block;
-    background: linear-gradient(135deg, #2ecc71, #27ae60);
-    color: white;
-    padding: 16px;
+    background: #fff;
+    color: #000;
+    padding: 18px;
     border-radius: 12px;
     text-decoration: none;
     font-weight: 700;
     font-size: 1.1rem;
-    margin-bottom: 15px;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+    transition: 0.3s;
+    text-transform: uppercase;
 }
 
 .join-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(46, 204, 113, 0.5);
-    filter: brightness(1.1);
+    background: #ddd;
+    transform: scale(1.03);
 }
 
-/* ตกแต่งปุ่ม Reload */
+/* ปุ่ม Reload (สไตล์ Outline) */
 .reload-button {
-    width: 100%;
-    background: #34495e;
-    color: #ecf0f1;
+    background: transparent;
+    color: #fff;
     padding: 12px;
     border-radius: 12px;
-    border: none;
+    border: 1px solid #333;
     cursor: pointer;
     font-family: 'Kanit', sans-serif;
-    font-weight: 500;
-    font-size: 0.9rem;
-    transition: background 0.3s;
+    font-size: 0.8rem;
+    transition: 0.3s;
 }
 
 .reload-button:hover {
-    background: #455d7a;
+    background: #222;
+    border-color: #fff;
 }
 
 .footer {
-    margin-top: 25px;
-    font-size: 0.85rem;
-    color: #666;
+    margin-top: 30px;
 }
 
-/* ปรับแต่งพิเศษสำหรับหน้าจอมือถือที่เล็กมากๆ */
-@media (max-width: 375px) {
+.footer p {
+    font-size: 0.7rem;
+    color: #444;
+}
+
+/* รองรับมือถือ */
+@media (max-width: 480px) {
     .card {
         padding: 30px 20px;
     }
     h1 {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
     }
 }

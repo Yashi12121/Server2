@@ -4,279 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blox Fruits VIP Server</title>
+    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
-    <style>
-        /* --- CSS เดิมที่ปรับให้เข้ากับระบบใหม่ --- */
-        :root {
-            --primary-color: #ff00ea;
-            --secondary-color: #00e1ff;
-            --bg-dark: #0a0a0a;
-            --card-bg: rgba(20, 20, 20, 0.9);
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Kanit', sans-serif;
-            background: var(--bg-dark);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            color: white;
-            overflow: hidden;
-        }
-
-        .container { position: relative; width: 350px; }
-
-        /* RGB Border Effect */
-        .rgb-card-bw {
-            padding: 3px;
-            background: linear-gradient(45deg, #ff0000, #ff00ea, #00e1ff, #ff0000);
-            background-size: 400% 400%;
-            border-radius: 20px;
-            animation: gradient-animation 5s infinite linear;
-        }
-
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 18px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            cursor: pointer; /* สำหรับกด Login */
-            user-select: none;
-            text-shadow: 0 0 10px var(--primary-color);
-        }
-
-        /* Status */
-        .status-wrapper {
-            display: inline-flex;
-            align-items: center;
-            padding: 8px 15px;
-            border-radius: 50px;
-            background: rgba(0, 0, 0, 0.5);
-            margin-bottom: 20px;
-        }
-
-        .status-dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 10px; }
-        .online .status-dot { background: #00ff88; box-shadow: 0 0 10px #00ff88; }
-        .offline .status-dot { background: #ff4d4d; box-shadow: 0 0 10px #ff4d4d; }
-
-        /* Buttons */
-        .button-group { display: flex; flex-direction: column; gap: 15px; }
-        
-        .join-button {
-            text-decoration: none;
-            color: white;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            padding: 15px;
-            border-radius: 10px;
-            font-weight: bold;
-            transition: 0.3s;
-            box-shadow: 0 0 15px rgba(255, 0, 234, 0.4);
-        }
-
-        .join-button:hover { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 225, 255, 0.6); }
-        .disabled { filter: grayscale(1); cursor: not-allowed; pointer-events: none; }
-
-        .reload-button {
-            background: transparent;
-            border: 1px solid #444;
-            color: #888;
-            padding: 10px;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        /* --- Admin Panel UI (ทำให้เข้ากัน) --- */
-        #admin-panel {
-            display: none;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #333;
-            text-align: left;
-        }
-
-        .admin-title { font-size: 0.9rem; color: var(--secondary-color); margin-bottom: 10px; display: block; }
-        
-        .admin-input {
-            width: 100%;
-            padding: 12px;
-            box-sizing: border-box;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid #444;
-            border-radius: 8px;
-            color: white;
-            margin-bottom: 15px;
-            font-family: 'Kanit';
-        }
-
-        .admin-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        
-        .btn-toggle {
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            color: white;
-        }
-        .btn-on { background: #28a745; }
-        .btn-off { background: #dc3545; }
-        .btn-save { 
-            grid-column: span 2; 
-            background: #007bff; 
-            margin-top: 5px; 
-            padding: 12px; 
-            border: none; 
-            border-radius: 8px; 
-            color: white;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
 
     <div class="container">
         <div class="rgb-card-bw">
             <div class="card">
-                <h1 onclick="handleDevLogin()">BLOX FRUITS</h1>
+                <h1>BLOX FRUITS</h1>
                 
-                <div id="status-area" class="status-wrapper offline">
+                <div id="status-area" class="status-wrapper">
                     <span class="status-dot"></span>
-                    <span id="status-text" class="status-text">LOADING...</span>
+                    <span id="status-text" class="status-text">CHECKING...</span>
                 </div>
 
-                <div id="main-ui">
-                    <p style="color: #aaa;">PRIVATE SERVER</p>
-                    <div class="button-group">
-                        <a href="#" id="join-btn" class="join-button">JOIN SERVER</a>
-                        <button onclick="location.reload()" class="reload-button">RELOAD PAGE</button>
-                    </div>
+                <p/p>
+                
+                <div class="button-group">
+                    <a href="https://www.roblox.com/share?code=96ebaef53f98d643aff4f8b9a8665287&type=Server" id="join-btn" class="join-button">
+                        JOIN SERVER
+                    </a>
+
+                    <button onclick="window.location.reload()" class="reload-button">
+                        RELOAD PAGE
+                    </button>
                 </div>
 
-                <div id="admin-panel">
-                    <span class="admin-title">DEVELOPER SETTINGS</span>
-                    <input type="text" id="new-link" class="admin-input" placeholder="วางลิงก์เซิร์ฟเวอร์ใหม่ที่นี่">
-                    <div class="admin-btns">
-                        <button class="btn-toggle btn-on" onclick="updateServer(true, null)">เปิดเซิร์ฟ</button>
-                        <button class="btn-toggle btn-off" onclick="updateServer(false, null)">ปิดเซิร์ฟ</button>
-                        <button class="btn-save" onclick="saveNewLink()">บันทึกลิงก์และอัปเดต</button>
-                    </div>
-                    <center>
-                        <button onclick="logout()" style="margin-top: 15px; background:none; border:none; color:#555; cursor:pointer;">Logout</button>
-                    </center>
+                <div class="footer">
+                    <p></p>
                 </div>
-
             </div>
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    <script>
+        // ตั้งค่าสถานะตรงนี้ (true = เขียว / false = แดง)
+        const isServerOnline = true; 
+        const serverLink = "https://www.roblox.com/share?code=ba78cd1b1706954ca80de9be8be27b85&type=Server";
 
-        // คัดลอก Config จาก Firebase Console มาวางตรงนี้
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            databaseURL: "https://YOUR_PROJECT.firebaseio.com",
-            projectId: "YOUR_PROJECT",
-            appId: "YOUR_APP_ID"
-        };
+        const statusArea = document.getElementById('status-area');
+        const statusText = document.getElementById('status-text');
+        const joinBtn = document.getElementById('join-btn');
 
-        // ตรวจสอบว่าใส่ Config หรือยัง
-        const isFirebaseConfigured = firebaseConfig.apiKey !== "YOUR_API_KEY";
-        
-        let db, serverRef;
-        if (isFirebaseConfigured) {
-            const app = initializeApp(firebaseConfig);
-            db = getDatabase(app);
-            serverRef = ref(db, 'serverData');
-        }
-
-        // --- ระบบอัปเดต UI ---
-        function updateUI(isOnline, link) {
-            const statusArea = document.getElementById('status-area');
-            const statusText = document.getElementById('status-text');
-            const joinBtn = document.getElementById('join-btn');
-
-            if (isOnline) {
-                statusArea.className = "status-wrapper online";
-                statusText.innerText = "SERVER ONLINE";
-                joinBtn.href = link;
-                joinBtn.classList.remove('disabled');
-                joinBtn.innerText = "JOIN SERVER";
-            } else {
-                statusArea.className = "status-wrapper offline";
-                statusText.innerText = "SERVER OFFLINE";
-                joinBtn.classList.add('disabled');
-                joinBtn.innerText = "LINK EXPIRED";
-            }
-        }
-
-        // --- ดึงข้อมูล ---
-        if (isFirebaseConfigured) {
-            onValue(serverRef, (snapshot) => {
-                const data = snapshot.val();
-                if (data) updateUI(data.isOnline, data.link);
-            });
+        if (isServerOnline) {
+            statusArea.classList.add('online');
+            statusText.innerText = "SERVER ONLINE";
+            joinBtn.href = serverLink;
         } else {
-            // ถ้าไม่มี Firebase ให้ใช้ LocalStorage (ดูได้คนเดียว) เพื่อทดสอบ UI
-            console.warn("Firebase not configured. Using LocalStorage for testing.");
-            const localData = JSON.parse(localStorage.getItem('serverData')) || { isOnline: true, link: "#" };
-            updateUI(localData.isOnline, localData.link);
+            statusArea.classList.add('offline');
+            statusText.innerText = "SERVER OFFLINE";
+            joinBtn.href = "#"; 
+            joinBtn.classList.add('disabled');
+            joinBtn.innerText = "LINK EXPIRED";
         }
-
-        // --- ระบบ Admin Logic (Global Window Functions) ---
-        let clickCount = 0;
-        window.handleDevLogin = () => {
-            clickCount++;
-            if (clickCount >= 3) {
-                const pass = prompt("Enter Developer Password:");
-                if (pass === "1234") { // รหัสผ่าน
-                    document.getElementById('admin-panel').style.display = "block";
-                    document.getElementById('main-ui').style.display = "none";
-                }
-                clickCount = 0;
-            }
-        };
-
-        window.updateServer = (status, link) => {
-            const currentLink = link || document.getElementById('join-btn').href;
-            if (isFirebaseConfigured) {
-                set(serverRef, { isOnline: status, link: currentLink });
-            } else {
-                localStorage.setItem('serverData', JSON.stringify({ isOnline: status, link: currentLink }));
-                location.reload();
-            }
-        };
-
-        window.saveNewLink = () => {
-            const link = document.getElementById('new-link').value;
-            if (link.includes("roblox.com")) {
-                window.updateServer(true, link);
-                alert("อัปเดตเรียบร้อย!");
-            } else {
-                alert("ลิงก์ไม่ถูกต้อง!");
-            }
-        };
-
-        window.logout = () => {
-            document.getElementById('admin-panel').style.display = "none";
-            document.getElementById('main-ui').style.display = "block";
-        };
     </script>
+
 </body>
 </html>
+
+

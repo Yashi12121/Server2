@@ -1,124 +1,100 @@
-/* นำเข้าฟอนต์ Kanit จาก Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap');
-
+/* ล้างค่าพื้นฐาน */
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Kanit', sans-serif;
 }
 
 body {
-    /* พื้นหลังแบบไล่สีสไตล์ท้องทะเลและท้องฟ้ากลางคืน */
-    background: radial-gradient(circle, #1e3c72 0%, #2a5298 50%, #000000 100%);
-    height: 100vh;
+    font-family: 'Kanit', sans-serif;
+    background-color: #121212; /* สีพื้นหลังเข้มแบบ Gaming */
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-}
-
-/* เอฟเฟกต์ตกแต่งพื้นหลังให้ดูมีมิติ (วงกลมแสง) */
-body::before {
-    content: "";
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background: url('https://www.transparenttextures.com/patterns/stardust.png'); /* เพิ่มละอองดาว */
-    opacity: 0.3;
+    min-height: 100vh;
+    padding: 20px;
 }
 
 .container {
-    z-index: 1;
-    width: 90%;
-    max-width: 450px;
+    width: 100%;
+    max-width: 400px; /* ล็อกขนาดให้พอดี ไม่กว้างเกินไปในคอม */
 }
 
 .card {
-    background: rgba(0, 0, 0, 0.6); /* พื้นหลังดำโปร่งแสง */
-    backdrop-filter: blur(10px); /* เอฟเฟกต์กระจกฝ้า */
-    padding: 50px 30px;
-    border-radius: 30px;
+    background: #1f1f1f;
+    padding: 40px 30px;
+    border-radius: 24px;
     text-align: center;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 
-                0 0 20px rgba(0, 198, 255, 0.2); /* เงาเรืองแสงเบาๆ */
-    transform: translateY(0);
-    transition: 0.5s;
-}
-
-/* ทำให้ Card ลอยขึ้นลงช้าๆ */
-.card:hover {
-    transform: translateY(-10px);
-    border-color: #00c6ff;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border: 1px solid #333;
 }
 
 h1 {
-    color: #fff;
-    font-size: 2.2rem;
+    font-size: 1.6rem;
     margin-bottom: 10px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px #00c6ff, 0 0 20px #00c6ff; /* ตัวหนังสือเรืองแสง */
+    color: #ffffff;
 }
 
 p {
-    color: #ccc;
     font-weight: 300;
-    margin-bottom: 40px;
-    line-height: 1.6;
+    font-size: 0.95rem;
+    color: #b0b0b0;
+    margin-bottom: 30px;
 }
 
+/* ตกแต่งปุ่ม Join */
 .join-button {
     display: block;
-    padding: 18px;
-    background: linear-gradient(45deg, #00c6ff, #0072ff); /* สีปุ่มไล่เฉดฟ้า */
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
     color: white;
+    padding: 16px;
+    border-radius: 12px;
     text-decoration: none;
-    font-size: 1.3rem;
     font-weight: 700;
-    border-radius: 50px;
-    box-shadow: 0 10px 20px rgba(0, 198, 255, 0.4);
-    transition: 0.4s;
-    position: relative;
-    overflow: hidden;
-}
-
-/* เพิ่มเอฟเฟกต์แสงวิ่งผ่านปุ่ม */
-.join-button::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -60%;
-    width: 20%;
-    height: 200%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: rotate(30deg);
-    transition: 0.5s;
-}
-
-.join-button:hover::after {
-    left: 120%;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
 }
 
 .join-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 15px 30px rgba(0, 198, 255, 0.6);
-    background: linear-gradient(45deg, #0072ff, #00c6ff);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(46, 204, 113, 0.5);
+    filter: brightness(1.1);
+}
+
+/* ตกแต่งปุ่ม Reload */
+.reload-button {
+    width: 100%;
+    background: #34495e;
+    color: #ecf0f1;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Kanit', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.reload-button:hover {
+    background: #455d7a;
 }
 
 .footer {
-    margin-top: 30px;
-}
-
-.footer p {
+    margin-top: 25px;
     font-size: 0.85rem;
-    color: #888;
-    margin-bottom: 0;
+    color: #666;
 }
 
-/* สำหรับมือถือ */
-@media (max-width: 480px) {
-    h1 { font-size: 1.8rem; }
-    .card { padding: 40px 20px; }
+/* ปรับแต่งพิเศษสำหรับหน้าจอมือถือที่เล็กมากๆ */
+@media (max-width: 375px) {
+    .card {
+        padding: 30px 20px;
+    }
+    h1 {
+        font-size: 1.4rem;
+    }
 }

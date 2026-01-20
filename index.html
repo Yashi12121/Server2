@@ -10,7 +10,7 @@
 <body>
 
     <div class="container">
-        <div class="rgb-card">
+        <div class="rgb-card-bw">
             <div class="card">
                 <h1>BLOX FRUITS</h1>
                 
@@ -39,31 +39,26 @@
     </div>
 
     <script>
-        // --- ตั้งค่าตรงนี้ ---
+        // ตั้งค่าสถานะตรงนี้ (true = เขียว / false = แดง)
+        const isServerOnline = true; 
         const serverLink = "https://www.roblox.com/share?code=96ebaef53f98d643aff4f8b9a8665287&type=Server";
-        const isServerOnline = true; // เปลี่ยนเป็น false ถ้าเซิร์ฟเวอร์ปิด/ไม่มีลิงก์
-        // ------------------
 
         const statusArea = document.getElementById('status-area');
         const statusText = document.getElementById('status-text');
         const joinBtn = document.getElementById('join-btn');
 
-        if (isServerOnline && serverLink !== "") {
-            // ถ้ามีเซิร์ฟเวอร์
+        if (isServerOnline) {
             statusArea.classList.add('online');
             statusText.innerText = "SERVER ONLINE";
             joinBtn.href = serverLink;
         } else {
-            // ถ้าไม่มีเซิร์ฟเวอร์ หรือสถานะเป็น false
             statusArea.classList.add('offline');
             statusText.innerText = "SERVER OFFLINE";
             joinBtn.href = "#"; 
-            joinBtn.classList.add('disabled'); // เพิ่มคลาสปิดการใช้งาน
+            joinBtn.classList.add('disabled');
             joinBtn.innerText = "LINK EXPIRED";
         }
     </script>
 
 </body>
 </html>
-
-

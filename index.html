@@ -6,33 +6,21 @@
     <title>Blox Fruits VIP Server</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00ff88; --danger: #ff4444; --bg: #0f0f0f; }
+        :root { --primary: #00ff88; --danger: #ff4444; --bg: #0d0d0d; }
         body { font-family: 'Kanit', sans-serif; background-color: var(--bg); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        
-        /* การ์ดหลัก */
-        .card { background: #1a1a1a; padding: 2.5rem; border-radius: 24px; text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.7); width: 320px; border: 1px solid #333; position: relative; }
-        h1 { margin-top: 0; letter-spacing: 2px; font-weight: 700; color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.2); }
-        
-        /* สถานะ */
-        .status-wrapper { padding: 12px; border-radius: 12px; margin: 25px 0; display: flex; align-items: center; justify-content: center; background: #000; border: 1px solid #222; }
-        .status-dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 12px; transition: 0.5s; }
+        .card { background: #161616; padding: 2.5rem; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.8); width: 320px; border: 1px solid #222; }
+        h1 { margin-top: 0; letter-spacing: 2px; color: #fff; }
+        .status-wrapper { padding: 15px; border-radius: 12px; margin: 20px 0; display: flex; align-items: center; justify-content: center; background: #000; border: 1px solid #333; }
+        .status-dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 12px; }
         .online .status-dot { background: var(--primary); box-shadow: 0 0 15px var(--primary); }
         .offline .status-dot { background: var(--danger); box-shadow: 0 0 15px var(--danger); }
-        
-        /* ปุ่ม Join */
-        .join-button { display: block; background: var(--primary); color: black; padding: 16px; text-decoration: none; font-weight: bold; border-radius: 12px; transition: 0.3s; font-size: 1.2rem; margin-top: 10px; }
-        .join-button:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,255,136,0.3); }
-        .disabled { background: #333 !important; color: #666 !important; cursor: not-allowed; pointer-events: none; opacity: 0.6; }
-        
-        /* แผงควบคุม Admin */
-        #admin-panel { display: none; margin-top: 25px; padding-top: 20px; border-top: 1px solid #333; text-align: left; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        input, select { width: 100%; padding: 12px; margin: 8px 0; background: #252525; border: 1px solid #444; color: white; border-radius: 8px; box-sizing: border-box; }
-        .admin-btn { background: #fff; color: #000; border: none; padding: 14px; width: 100%; cursor: pointer; margin-top: 10px; font-weight: bold; border-radius: 8px; font-size: 1rem; }
-        
-        .update-text { font-size: 0.75rem; color: #555; margin-top: 20px; }
-        .dev-login-trigger { position: fixed; bottom: 15px; right: 15px; color: #333; cursor: pointer; font-size: 11px; z-index: 100; transition: 0.3s; }
-        .dev-login-trigger:hover { color: #666; }
+        .join-button { display: block; background: var(--primary); color: black; padding: 15px; text-decoration: none; font-weight: bold; border-radius: 10px; transition: 0.3s; font-size: 1.1rem; }
+        .disabled { background: #222 !important; color: #555 !important; cursor: not-allowed; pointer-events: none; opacity: 0.5; }
+        #admin-panel { display: none; margin-top: 25px; padding-top: 20px; border-top: 1px solid #333; text-align: left; }
+        input, select { width: 100%; padding: 10px; margin: 8px 0; background: #222; border: 1px solid #444; color: white; border-radius: 8px; box-sizing: border-box; }
+        .admin-btn { background: #fff; color: #000; border: none; padding: 12px; width: 100%; cursor: pointer; margin-top: 10px; font-weight: bold; border-radius: 8px; }
+        .update-text { font-size: 0.75rem; color: #555; margin-top: 15px; }
+        .dev-login { position: fixed; bottom: 10px; right: 10px; font-size: 10px; color: #333; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -49,25 +37,22 @@
         <p id="update-time" class="update-text">อัปเดตล่าสุด: -</p>
 
         <div id="admin-panel">
-            <h3 style="color: var(--primary); margin: 0 0 10px 0;">DEV PANEL</h3>
-            <label style="font-size: 0.8rem; color: #888;">ลิ้งค์เซิร์ฟเวอร์:</label>
-            <input type="text" id="new-link" placeholder="Roblox Link Here...">
-            <label style="font-size: 0.8rem; color: #888;">สถานะ:</label>
+            <h3 style="color: var(--primary); margin: 0;">DEV SETTINGS</h3>
+            <input type="text" id="new-link" placeholder="วางลิ้งค์เชิฟเวอร์ที่นี่">
             <select id="new-status">
-                <option value="true">SERVER ONLINE</option>
-                <option value="false">SERVER OFFLINE</option>
+                <option value="true">เปิดเซิฟ (ONLINE)</option>
+                <option value="false">ปิดเซิฟ (OFFLINE)</option>
             </select>
-            <button onclick="updateServer()" class="admin-btn">PUBLISH UPDATE</button>
+            <button onclick="updateServer()" class="admin-btn">UPDATE DATA</button>
         </div>
     </div>
 
-    <div class="dev-login-trigger" onclick="adminLogin()">DEV LOGIN</div>
+    <div class="dev-login" onclick="adminLogin()">DEV LOGIN</div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        // Firebase Config ของคุณ
         const firebaseConfig = {
             apiKey: "AIzaSyBcUHlTRnYahSSM4uGAGzBUWom1EUpi48M",
             authDomain: "yashi-c2e9c.firebaseapp.com",
@@ -82,7 +67,7 @@
         const db = getDatabase(app);
         const serverRef = ref(db, 'serverData');
 
-        // รับข้อมูลจาก Firebase แบบ Realtime
+        // แสดงผล Realtime
         onValue(serverRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
@@ -102,57 +87,20 @@
                     statusText.innerText = "SERVER OFFLINE";
                     joinBtn.href = "#";
                     joinBtn.classList.add('disabled');
-                    joinBtn.innerText = "LINK EXPIRED";
+                    joinBtn.innerText = "SERVER CLOSED";
                 }
                 updateTime.innerText = "อัปเดตล่าสุด: " + data.lastUpdate;
             }
         });
 
-        // ฟังก์ชันอัปเดต (ส่งไป Firebase)
+        // ฟังก์ชันอัปเดตสำหรับ Admin
         window.updateServer = function() {
-            const link = document.getElementById('new-link').value;
-            const status = document.getElementById('new-status').value;
-            const time = new Date().toLocaleString('th-TH');
-
-            set(serverRef, {
-                link: link,
-                isOnline: status,
-                lastUpdate: time
-            }).then(() => alert("อัปเดตข้อมูลเรียบร้อยแล้ว!"));
-        }
-    </script>
-
-    <script>
-        // ระบบ Login สำหรับ Dev (รหัส: 1234)
-        function adminLogin() {
-            const pass = prompt("กรุณาใส่รหัสผ่าน Developer:");
-            if (pass === "1234") { 
-                document.getElementById('admin-panel').style.display = 'block';
-                alert("ยินดีต้อนรับท่านประธาน!");
-            } else if (pass !== null) {
-                alert("รหัสผ่านไม่ถูกต้อง!");
-            }
-        }
-    </script>
-
-</body>
-</html>
-        // ระบบ Login แบบง่าย
-        function adminLogin() {
-            const pass = prompt("Enter Developer Password:");
-            if (pass === "1234") { // เปลี่ยนรหัสผ่านตรงนี้
-                document.getElementById('admin-panel').style.display = 'block';
-                alert("Login Success!");
-            }
-        }
-    </script>
-</body>
-</html>
+            const newLink = document.getElementById('new-link').value;
             const newStatus = document.getElementById('new-status').value;
             const now = new Date().toLocaleString('th-TH');
 
             if (!newLink && newStatus === "true") {
-                alert("กรุณาใส่ลิ้งก์เชิฟเวอร์!");
+                alert("กรุณาใส่ลิ้งก์เชิฟเวอร์ก่อนเปิด!");
                 return;
             }
 
@@ -161,26 +109,23 @@
                 isOnline: newStatus,
                 lastUpdate: now
             }).then(() => {
-                alert("อัปเดตเรียบร้อย! ทุกคนจะเห็นข้อมูลใหม่ทันที");
+                alert("อัปเดตเรียบร้อย!");
             });
-        }
+        };
     </script>
 
     <script>
-        // ระบบ Login แบบง่าย
+        // ระบบ Login
         function adminLogin() {
             const pass = prompt("Enter Developer Password:");
-            if (pass === "1234") { // เปลี่ยนรหัสผ่านตรงนี้
+            if (pass === "1234") {
                 document.getElementById('admin-panel').style.display = 'block';
-                alert("Login Success!");
-            } else {
-                alert("Wrong Password!");
+                alert("ยินดีต้อนรับ!");
+            } else if (pass !== null) {
+                alert("รหัสผ่านผิด!");
             }
         }
     </script>
+
 </body>
 </html>
-
-
-
-

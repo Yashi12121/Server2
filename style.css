@@ -1,4 +1,3 @@
-/* ล้างค่าพื้นฐาน */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -20,14 +19,14 @@ body {
     max-width: 400px;
 }
 
-/* เอฟเฟกต์ไฟ RGB รอบการ์ด */
+/* RGB Border Effect */
 .rgb-card {
     position: relative;
     padding: 3px;
     background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
     background-size: 400%;
     border-radius: 25px;
-    animation: rgb-animation 20s linear infinite;
+    animation: rgb-animation 15s linear infinite;
 }
 
 @keyframes rgb-animation {
@@ -44,13 +43,13 @@ body {
 }
 
 h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     letter-spacing: 2px;
     color: #fff;
     margin-bottom: 5px;
 }
 
-/* --- ส่วนของไฟสถานะ --- */
+/* Status Indicator */
 .status-wrapper {
     display: flex;
     align-items: center;
@@ -63,16 +62,16 @@ h1 {
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    position: relative;
+    background-color: #555; /* สีพื้นฐานตอนกำลังเช็ก */
 }
 
 .status-text {
     font-size: 0.75rem;
     font-weight: 700;
-    letter-spacing: 1px;
+    color: #555;
 }
 
-/* กรณีออนไลน์ (สีเขียว) */
+/* Online State */
 .online .status-dot {
     background-color: #2ecc71;
     box-shadow: 0 0 10px #2ecc71;
@@ -80,7 +79,7 @@ h1 {
 }
 .online .status-text { color: #2ecc71; }
 
-/* กรณีออฟไลน์ (สีแดง) */
+/* Offline State */
 .offline .status-dot {
     background-color: #e74c3c;
     box-shadow: 0 0 10px #e74c3c;
@@ -99,11 +98,10 @@ h1 {
     70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
     100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
 }
-/* -------------------- */
 
 p {
     font-size: 0.8rem;
-    color: #555;
+    color: #666;
     letter-spacing: 2px;
     margin-bottom: 30px;
 }
@@ -125,14 +123,22 @@ p {
     transition: 0.3s;
 }
 
-.join-button:hover {
+/* สไตล์เมื่อปุ่มใช้ไม่ได้ */
+.join-button.disabled {
+    background: #222;
+    color: #555;
+    pointer-events: none; /* ห้ามคลิก */
+    border: 1px solid #333;
+}
+
+.join-button:not(.disabled):hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
 }
 
 .reload-button {
     background: transparent;
-    color: #666;
+    color: #444;
     padding: 12px;
     border-radius: 12px;
     border: 1px solid #222;
@@ -148,6 +154,5 @@ p {
 
 .footer p {
     margin-top: 30px;
-    font-size: 0.7rem;
-    color: #333;
+    color: #222;
 }

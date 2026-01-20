@@ -1,3 +1,4 @@
+/* ล้างค่าพื้นฐาน */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,7 +7,7 @@
 
 body {
     font-family: 'Kanit', sans-serif;
-    background-color: #050505;
+    background-color: #080808; /* พื้นหลังดำเกือบสนิท */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,91 +20,87 @@ body {
     max-width: 400px;
 }
 
-/* RGB Border Effect */
-.rgb-card {
+/* ขอบขาวดำแบบ RGB (Animated Grayscale Border) */
+.rgb-card-bw {
     position: relative;
-    padding: 3px;
-    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-    background-size: 400%;
-    border-radius: 25px;
-    animation: rgb-animation 15s linear infinite;
+    padding: 2px; /* ความหนาของเส้นขอบ */
+    /* ไล่สี ดำ-เทา-ขาว-เทา-ดำ */
+    background: linear-gradient(90deg, #000, #333, #fff, #333, #000);
+    background-size: 300% 300%;
+    border-radius: 20px;
+    animation: bw-rgb-flow 4s linear infinite;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
 }
 
-@keyframes rgb-animation {
+/* อนิเมชั่นไฟวิ่ง */
+@keyframes bw-rgb-flow {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
 }
 
 .card {
-    background: #111;
+    background: #111; /* ตัวการ์ดสีดำถ่าน */
     padding: 40px 30px;
-    border-radius: 22px;
+    border-radius: 18px;
     text-align: center;
 }
 
 h1 {
     font-size: 1.8rem;
-    letter-spacing: 2px;
+    letter-spacing: 4px;
     color: #fff;
+    font-weight: 700;
     margin-bottom: 5px;
 }
 
-/* Status Indicator */
+/* --- สถานะ Online/Offline (ยังคงใช้สีเพื่อความชัดเจน) --- */
 .status-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .status-dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background-color: #555; /* สีพื้นฐานตอนกำลังเช็ก */
 }
 
 .status-text {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 700;
-    color: #555;
+    letter-spacing: 1px;
 }
 
-/* Online State */
 .online .status-dot {
-    background-color: #2ecc71;
-    box-shadow: 0 0 10px #2ecc71;
-    animation: pulse-green 2s infinite;
+    background-color: #00ff88;
+    box-shadow: 0 0 10px #00ff88;
+    animation: pulse 2s infinite;
 }
-.online .status-text { color: #2ecc71; }
+.online .status-text { color: #00ff88; }
 
-/* Offline State */
 .offline .status-dot {
-    background-color: #e74c3c;
-    box-shadow: 0 0 10px #e74c3c;
-    animation: pulse-red 2s infinite;
+    background-color: #ff4444;
+    box-shadow: 0 0 10px #ff4444;
 }
-.offline .status-text { color: #e74c3c; }
+.offline .status-text { color: #ff4444; }
 
-@keyframes pulse-green {
-    0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
-    70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+@keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.7; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.7; }
 }
-
-@keyframes pulse-red {
-    0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); }
-    70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
-}
+/* -------------------------------------------------- */
 
 p {
-    font-size: 0.8rem;
-    color: #666;
+    font-size: 0.75rem;
+    color: #444;
     letter-spacing: 2px;
     margin-bottom: 30px;
+    text-transform: uppercase;
 }
 
 .button-group {
@@ -112,47 +109,58 @@ p {
     gap: 12px;
 }
 
+/* ปุ่ม Join - ขาวอักษรดำ */
 .join-button {
     display: block;
     background: #fff;
     color: #000;
-    padding: 18px;
-    border-radius: 12px;
+    padding: 16px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: 700;
-    transition: 0.3s;
-}
-
-/* สไตล์เมื่อปุ่มใช้ไม่ได้ */
-.join-button.disabled {
-    background: #222;
-    color: #555;
-    pointer-events: none; /* ห้ามคลิก */
-    border: 1px solid #333;
+    font-size: 1rem;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .join-button:not(.disabled):hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 20px rgba(255, 255, 255, 0.2);
+    background: #ccc;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
 }
 
+.join-button.disabled {
+    background: #1a1a1a;
+    color: #333;
+    border: 1px solid #222;
+    pointer-events: none;
+}
+
+/* ปุ่ม Reload - ดำขอบเทา */
 .reload-button {
     background: transparent;
-    color: #444;
-    padding: 12px;
-    border-radius: 12px;
+    color: #555;
+    padding: 10px;
+    border-radius: 10px;
     border: 1px solid #222;
     cursor: pointer;
     font-family: 'Kanit', sans-serif;
+    font-size: 0.8rem;
     transition: 0.3s;
 }
 
 .reload-button:hover {
     color: #fff;
-    border-color: #fff;
+    border-color: #444;
 }
 
 .footer p {
     margin-top: 30px;
+    font-size: 0.65rem;
     color: #222;
+}
+
+/* ปรับให้พอดีมือถือ */
+@media (max-width: 480px) {
+    .card { padding: 30px 20px; }
+    h1 { font-size: 1.5rem; }
 }

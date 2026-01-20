@@ -14,15 +14,15 @@
             <div class="card">
                 <h1>BLOX FRUITS</h1>
                 
-                <div class="status-wrapper online">
+                <div id="status-area" class="status-wrapper">
                     <span class="status-dot"></span>
-                    <span class="status-text">SERVER ONLINE</span>
+                    <span id="status-text" class="status-text">CHECKING...</span>
                 </div>
 
                 <p>PRIVATE SERVER ACCESS</p>
                 
                 <div class="button-group">
-                    <a href="https://www.roblox.com/share?code=96ebaef53f98d643aff4f8b9a8665287&type=Server">
+                    <a href="https://www.roblox.com/share?code=96ebaef53f98d643aff4f8b9a8665287&type=Server" id="join-btn" class="join-button">
                         JOIN SERVER
                     </a>
 
@@ -38,7 +38,30 @@
         </div>
     </div>
 
+    <script>
+        // --- ตั้งค่าตรงนี้ ---
+        const serverLink = "https://www.roblox.com/share?code=96ebaef53f98d643aff4f8b9a8665287&type=Server";
+        const isServerOnline = true; // เปลี่ยนเป็น false ถ้าเซิร์ฟเวอร์ปิด/ไม่มีลิงก์
+        // ------------------
+
+        const statusArea = document.getElementById('status-area');
+        const statusText = document.getElementById('status-text');
+        const joinBtn = document.getElementById('join-btn');
+
+        if (isServerOnline && serverLink !== "") {
+            // ถ้ามีเซิร์ฟเวอร์
+            statusArea.classList.add('online');
+            statusText.innerText = "SERVER ONLINE";
+            joinBtn.href = serverLink;
+        } else {
+            // ถ้าไม่มีเซิร์ฟเวอร์ หรือสถานะเป็น false
+            statusArea.classList.add('offline');
+            statusText.innerText = "SERVER OFFLINE";
+            joinBtn.href = "#"; 
+            joinBtn.classList.add('disabled'); // เพิ่มคลาสปิดการใช้งาน
+            joinBtn.innerText = "LINK EXPIRED";
+        }
+    </script>
+
 </body>
 </html>
-
-

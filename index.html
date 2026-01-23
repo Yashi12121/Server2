@@ -3,55 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blox Fruits VIP Server</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>Blox Fruits VIP - Deep Sea Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00ff88; --danger: #ff4444; --bg: #0d0d0d; }
-        body { font-family: 'Kanit', sans-serif; background-color: var(--bg); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .card { background: #161616; padding: 2.5rem; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.8); width: 320px; border: 1px solid #222; }
-        h1 { margin-top: 0; letter-spacing: 2px; color: #fff; }
-        .status-wrapper { padding: 15px; border-radius: 12px; margin: 20px 0; display: flex; align-items: center; justify-content: center; background: #000; border: 1px solid #333; }
-        .status-dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 12px; }
-        .online .status-dot { background: var(--primary); box-shadow: 0 0 15px var(--primary); }
-        .offline .status-dot { background: var(--danger); box-shadow: 0 0 15px var(--danger); }
-        .join-button { display: block; background: var(--primary); color: black; padding: 15px; text-decoration: none; font-weight: bold; border-radius: 10px; transition: 0.3s; font-size: 1.1rem; }
-        .disabled { background: #222 !important; color: #555 !important; cursor: not-allowed; pointer-events: none; opacity: 0.5; }
-        #admin-panel { display: none; margin-top: 25px; padding-top: 20px; border-top: 1px solid #333; text-align: left; }
-        input, select { width: 100%; padding: 10px; margin: 8px 0; background: #222; border: 1px solid #444; color: white; border-radius: 8px; box-sizing: border-box; }
-        .admin-btn { background: #fff; color: #000; border: none; padding: 12px; width: 100%; cursor: pointer; margin-top: 10px; font-weight: bold; border-radius: 8px; }
-        .update-text { font-size: 0.75rem; color: #555; margin-top: 15px; }
-        .dev-login { position: fixed; bottom: 10px; right: 10px; font-size: 10px; color: #333; cursor: pointer; }
+        /* --- Animations --- */
+        @keyframes ocean-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes bubbles {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            50% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+
+        /* 1. Base Setup */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Kanit', sans-serif;
+            background: linear-gradient(180deg, #001524 0%, #003249 50%, #007cc7 100%);
+            background-size: 400% 400%;
+            animation: ocean-flow 15s ease infinite;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; padding: 20px; overflow: hidden; position: relative;
+        }
+
+        /* 2. Bubble Effect */
+        .bubble {
+            position: absolute; bottom: -50px; background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%; pointer-events: none;
+            animation: bubbles 10s infinite ease-in;
+        }
+
+        .container { width: 100%; max-width: 420px; z-index: 1; }
+
+        /* 3. Sea RGB Border (Blue/Teal/Gold/Purple) */
+        .sea-rgb-card {
+            position: relative; padding: 5px;
+            background: linear-gradient(45deg, #00d4ff, #0052d4, #9d50bb, #ffd700, #00d4ff);
+            background-size: 300% 300%;
+            border-radius: 25px;
+            animation: ocean-flow 5s linear infinite;
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.4);
+        }
+
+        /* 4. Glass Card */
+        .card {
+            background: rgba(0, 21, 36, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 50px 35px; border-radius: 22px;
+            text-align: center; position: relative; overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* 5. Typography */
+        h1 {
+            font-size: 2.2rem; letter-spacing: 3px; font-weight: 800;
+            color: #fff; text-transform: uppercase; margin-bottom: 5px;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+        }
+
+        .subtitle {
+            font-size: 0.8rem; color: #00d4ff; letter-spacing: 4px;
+            margin-bottom: 35px; text-transform: uppercase; font-weight: 600;
+        }
+
+        /* 6. Status UI */
+        .status-wrapper { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 35px; }
+        .status-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .status-text { font-size: 0.9rem; font-weight: 700; letter-spacing: 2px; }
+
+        .online .status-dot { background: #00ffcc; box-shadow: 0 0 20px #00ffcc; animation: pulse 2s infinite; }
+        .online .status-text { color: #00ffcc; }
+        .offline .status-dot { background: #ff4d4d; box-shadow: 0 0 15px #ff4d4d; }
+        .offline .status-text { color: #ff4d4d; }
+
+        @keyframes pulse { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.6; } 100% { transform: scale(1); opacity: 1; } }
+
+        /* 7. Join Button (Sea Gradient) */
+        .join-button {
+            display: block; padding: 20px; border-radius: 15px;
+            text-decoration: none; font-weight: 800; font-size: 1.2rem;
+            text-transform: uppercase; letter-spacing: 2px; color: #fff;
+            background: linear-gradient(90deg, #0052d4, #4361ee, #0052d4);
+            background-size: 200% auto;
+            border: none; position: relative;
+            animation: ocean-flow 3s linear infinite;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .join-button:not(.disabled):hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.5);
+            filter: brightness(1.2);
+        }
+
+        .join-button.disabled {
+            background: #222; color: #555; pointer-events: none; opacity: 0.6;
+        }
+
+        /* 8. Ocean Warning (RGB Text) */
+        .warning-box {
+            background: rgba(0, 0, 0, 0.3); padding: 15px; border-radius: 12px;
+            margin-top: 25px; border: 1px dashed rgba(0, 212, 255, 0.3);
+        }
+        .rgb-warning {
+            background: linear-gradient(to right, #00d4ff, #fff, #9d50bb, #00d4ff);
+            background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-weight: bold; animation: ocean-flow 3s linear infinite;
+            font-size: 0.75rem; line-height: 1.6;
+        }
+
+        /* 9. Admin & Others */
+        #admin-panel { display: none; margin-top: 30px; padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); }
+        input, select {
+            width: 100%; padding: 12px; margin: 10px 0; background: rgba(0,0,0,0.5); 
+            color: #fff; border: 1px solid #00d4ff; border-radius: 10px; outline: none;
+        }
+        .admin-btn {
+            width: 100%; padding: 15px; border-radius: 10px; border: none;
+            background: #fff; color: #000; font-weight: bold; cursor: pointer;
+        }
+        .footer p { margin-top: 30px; font-size: 0.65rem; color: rgba(0, 212, 255, 0.6); }
+        .dev-login { position: fixed; bottom: 15px; right: 15px; font-size: 10px; color: rgba(255,255,255,0.2); cursor: pointer; }
+
+        @media (max-width: 480px) { .card { padding: 40px 20px; } h1 { font-size: 1.8rem; } }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h1>BLOX FRUITS</h1>
-        
-        <div id="status-area" class="status-wrapper">
-            <div class="status-dot"></div>
-            <span id="status-text">CONNECTING...</span>
-        </div>
+    <script>
+        for (let i = 0; i < 15; i++) {
+            let b = document.createElement('div');
+            b.className = 'bubble';
+            let size = Math.random() * 20 + 5 + 'px';
+            b.style.width = size; b.style.height = size;
+            b.style.left = Math.random() * 100 + 'vw';
+            b.style.animationDuration = Math.random() * 5 + 5 + 's';
+            b.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(b);
+        }
+    </script>
 
-        <a href="#" id="join-btn" class="join-button">JOIN SERVER</a>
-        <p id="update-time" class="update-text">อัปเดตล่าสุด: -</p>
-        <p style="font-size: 0.75rem; color: #888; margin-top: 12px; line-height: 1.4;">
-    ⚠️ หากเข้าเซิร์ฟเวอร์ไม่ได้<br>
-    ให้ปัดปิดแอป <b>Roblox</b> แล้วเปิดใหม่ จากนั้นกด <b>JOIN SERVER</b> อีกครั้ง ถ้ากดเข้าไม่ได้ให้คัดล็อกลิงค์ ไปใส่ในเว็ปบราวเซอร์เลย
-</p>
+    <div class="container">
+        <div class="sea-rgb-card">
+            <div class="card">
+                <h1>BLOX FRUITS</h1>
+                <p class="subtitle">PRIVATE SERVER V3</p>
+                
+                <div id="status-area" class="status-wrapper">
+                    <div class="status-dot"></div>
+                    <span id="status-text" class="status-text">WAITING...</span>
+                </div>
 
-        <div id="admin-panel">
-            <h3 style="color: var(--primary); margin: 0;">DEV SETTINGS</h3>
-            <input type="text" id="new-link" placeholder="วางลิ้งค์เชิฟเวอร์ที่นี่">
-            <select id="new-status">
-                <option value="true">เปิดเซิฟ (ONLINE)</option>
-                <option value="false">ปิดเซิฟ (OFFLINE)</option>
-            </select>
-            <button onclick="updateServer()" class="admin-btn">UPDATE DATA</button>
+                <a href="#" id="join-btn" class="join-button disabled">JOIN SERVER</a>
+
+                <div class="warning-box">
+                    <p class="rgb-warning">
+                        🌊 หากเข้าเซิร์ฟเวอร์ไม่ได้<br>
+                        ให้ปิดแอป Roblox แล้วเปิดใหม่ หรือคัดลอกลิงก์ไปวางใน Browser แทนเพื่อความเสถียรครับ
+                    </p>
+                </div>
+
+                <div id="admin-panel">
+                    <input type="text" id="new-link" placeholder="ลิ้งค์เซิร์ฟเวอร์ใหม่">
+                    <select id="new-status">
+                        <option value="true">เปิดเซิร์ฟเวอร์</option>
+                        <option value="false">ปิดเซิร์ฟเวอร์</option>
+                    </select>
+                    <button onclick="updateServer()" class="admin-btn">อัปเดตระบบ</button>
+                </div>
+
+                <div class="footer">
+                    <p id="update-time">LATEST SYNC: -</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="dev-login" onclick="adminLogin()">DEV LOGIN</div>
+    <div class="dev-login" onclick="adminLogin()">SECURE LOGIN</div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -71,7 +205,6 @@
         const db = getDatabase(app);
         const serverRef = ref(db, 'serverData');
 
-        // แสดงผล Realtime
         onValue(serverRef, (snapshot) => {
             const data = snapshot.val();
             if (data) {
@@ -93,44 +226,30 @@
                     joinBtn.classList.add('disabled');
                     joinBtn.innerText = "SERVER CLOSED";
                 }
-                updateTime.innerText = "อัปเดตล่าสุด: " + data.lastUpdate;
+                updateTime.innerText = "LATEST SYNC: " + data.lastUpdate;
             }
         });
 
-        // ฟังก์ชันอัปเดตสำหรับ Admin
         window.updateServer = function() {
             const newLink = document.getElementById('new-link').value;
             const newStatus = document.getElementById('new-status').value;
             const now = new Date().toLocaleString('th-TH');
 
-            if (!newLink && newStatus === "true") {
-                alert("กรุณาใส่ลิ้งก์เชิฟเวอร์ก่อนเปิด!");
-                return;
-            }
-
             set(serverRef, {
                 link: newLink,
                 isOnline: newStatus,
                 lastUpdate: now
-            }).then(() => {
-                alert("อัปเดตเรียบร้อย!");
-            });
+            }).then(() => alert("อัปเดตข้อมูลสำเร็จ!"));
         };
     </script>
 
     <script>
-        // ระบบ Login
         function adminLogin() {
-            const pass = prompt("Enter Developer Password:");
+            const pass = prompt("Enter Dev Password:");
             if (pass === "1234") {
                 document.getElementById('admin-panel').style.display = 'block';
-                alert("ยินดีต้อนรับ!");
-            } else if (pass !== null) {
-                alert("รหัสผ่านผิด!");
             }
         }
     </script>
-
 </body>
 </html>
-
